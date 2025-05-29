@@ -1,7 +1,6 @@
 // outputNode.js
 
 import { useState } from "react";
-// import { Handle, Position } from "reactflow";
 import NodeBase from "./NodeBase";
 
 export const OutputNode = ({ id, data }) => {
