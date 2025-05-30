@@ -70,7 +70,7 @@ export const PipelineUI = () => {
           x: event.clientX - reactFlowBounds.left,
           y: event.clientY - reactFlowBounds.top,
         });
-
+        console.log(type, "type");
         const nodeID = getNodeID(type);
         const newNode = {
           id: nodeID,

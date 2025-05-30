@@ -6,8 +6,9 @@ import NodeBase from "./NodeBase";
 export const TextNode = ({ id, data }) => {
   const [currText, setCurrText] = useState(data?.text || "{{input}}");
 
-  const handleTextChange = (e) => {
-    setCurrText(e.target.value);
+  const handleTextChange = (value) => {
+    setCurrText(value);
+    console.log(value);
   };
 
   return (

@@ -1,6 +1,8 @@
-import React from "react";
+import { useState, useCallback } from "react";
 import { Handle, Position } from "reactflow";
-import { Input } from "antd";
+import { Input, Mentions } from "antd";
+
+import { shallow } from "zustand/shallow";
 
 import {
   FiLogIn,
@@ -12,6 +14,7 @@ import {
   FiPlus,
   FiEdit2,
 } from "react-icons/fi";
+import { useStore } from "../store";
 
 const CARD_WIDTH = 300;
 
@@ -29,6 +32,11 @@ const variantDescriptions = {
   LLM: "Large Language Model node",
 };
 
+const selector = (state) => ({
+  getNodeID: state.getNodeID,
+  getAllNodesByType: state.getAllNodesByType,
+  onConnect: state.onConnect,
+});
 const NodeBase = ({
   id,
   variant,
@@ -41,6 +49,28 @@ const NodeBase = ({
   onRemove,
   onExpand,
 }) => {
+  const { getAllNodesByType, onConnect } = useStore(selector, shallow);
+
+  // Handler for Mentions selection
+  const handleMentionSelect = useCallback(
+    (option) => {
+      // Find the input node by id (option.value)
+      const inputNode = getAllNodesByType("customInput").find(
+        (node) => node.id.replace("customInput-", "input_") === option.value
+      );
+      if (inputNode) {
+        // Connect from input node's source handle to this Text node's target handle
+        onConnect({
+          source: inputNode.id,
+          sourceHandle: `${inputNode.id}-value`,
+          target: id,
+          targetHandle: `${id}-output`,
+        });
+      }
+    },
+    [getAllNodesByType, onConnect, id]
+  );
+
   return (
     <div
       style={{
@@ -271,10 +301,17 @@ const NodeBase = ({
               Text
             </span>
           </label>
-          <Input.TextArea
+          <Mentions
+            defaultValue=" "
+            prefix={"{{"}
+            options={getAllNodesByType("customInput").map((node) => ({
+              label: node.id.replace("customInput-", "input_"),
+              value: node.id.replace("customInput-", "input_"),
+            }))}
             type="text"
             value={currText}
             onChange={onTextChange}
+            onSelect={handleMentionSelect} // <-- Add this line
             style={{
               marginTop: 6,
               border: "1.5px solid #c7d2fe",
@@ -313,8 +350,8 @@ const NodeBase = ({
       )}
       {variant === "Text" && (
         <Handle
-          type="source"
-          position={Position.Right}
+          type="target"
+          position={Position.Left}
           id={`${id}-output`}
           style={{ top: "50%", borderColor: "#c7d2fe", borderWidth: 2 }}
         />
