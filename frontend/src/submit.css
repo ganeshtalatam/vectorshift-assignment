@@ -1,0 +1,19 @@
+.submit-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #635bfa;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  outline: none;
+}
+
+.submit-btn:hover {
+  background: #5146e1;
+}

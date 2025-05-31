@@ -11,6 +11,7 @@ import {
 export const useStore = create((set, get) => ({
   nodes: [],
   edges: [],
+
   getNodeID: (type) => {
     const newIDs = { ...get().nodeIDs };
     if (newIDs[type] === undefined) {
@@ -45,6 +46,7 @@ export const useStore = create((set, get) => ({
           markerEnd: { type: MarkerType.Arrow, height: "20px", width: "20px" },
         },
         get().edges
+        // console.log(get().edges.length)
       ),
     });
   },
@@ -62,7 +64,18 @@ export const useStore = create((set, get) => ({
   getAllNodeData: () => {
     return get().nodes;
   },
+
+  getAllNodesDataLength: () => {
+    console.log(get().nodes.length);
+  },
+  getAllEdgesDataLength: () => {
+    console.log(get().edges.length);
+  },
   getAllNodesByType: (type) => {
     return get().nodes.filter((node) => node.type === type);
   },
+  removeNode: (nodeId) =>
+    set({
+      nodes: get().nodes.filter((node) => node.id !== nodeId),
+    }),
 }));

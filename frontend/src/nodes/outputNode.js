@@ -1,6 +1,7 @@
 // outputNode.js
 
 import { useState } from "react";
+import { useStore } from "../store";
 import NodeBase from "./NodeBase";
 
 export const OutputNode = ({ id, data }) => {
@@ -17,6 +18,8 @@ export const OutputNode = ({ id, data }) => {
     setOutputType(e.target.value);
   };
 
+  const removeNode = useStore((state) => state.removeNode);
+
   return (
     <NodeBase
       id={id}
@@ -25,6 +28,7 @@ export const OutputNode = ({ id, data }) => {
       value={outputType}
       onNameChange={handleNameChange}
       onTypeChange={handleTypeChange}
+      onRemove={() => removeNode(id)}
     />
   );
 };

@@ -1,6 +1,7 @@
 // inputNode.js
 
 import { useState } from "react";
+import { useStore } from "../store";
 import NodeBase from "./NodeBase";
 export const InputNode = ({ id, data }) => {
   const [currName, setCurrName] = useState(
@@ -16,6 +17,8 @@ export const InputNode = ({ id, data }) => {
     setInputType(e.target.value);
   };
 
+  const removeNode = useStore((state) => state.removeNode);
+
   return (
     <NodeBase
       id={id}
@@ -24,6 +27,7 @@ export const InputNode = ({ id, data }) => {
       value={inputType}
       onNameChange={handleNameChange}
       onTypeChange={handleTypeChange}
+      onRemove={() => removeNode(id)}
     />
   );
 };
