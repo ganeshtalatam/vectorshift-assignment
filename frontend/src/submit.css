@@ -1,19 +1,30 @@
+.submit-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
+}
+
 .submit-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: #635bfa;
   color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 12px 24px;
-  font-size: 1.2rem;
+  border-radius: 8px;
+  padding: 26px 24px;
+  font-size: 1.4rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
   outline: none;
+  transition: background-color 0.2s;
 }
 
 .submit-btn:hover {
   background: #5146e1;
+}
+
+.submit-btn-icon {
+  font-size: 1.6rem;
 }

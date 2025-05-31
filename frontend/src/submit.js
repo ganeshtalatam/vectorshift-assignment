@@ -1,11 +1,13 @@
 import { PiRocketLaunchDuotone } from "react-icons/pi";
-import React from "react";
 import { useStore } from "./store";
+import { Button, notification } from "antd";
+import { MdOutlineDone } from "react-icons/md";
+import "./submit.css";
 
 export const SubmitButton = () => {
-  const [hover, setHover] = React.useState(false);
   const nodes = useStore((state) => state.nodes);
   const edges = useStore((state) => state.edges);
+  const [api, contextHolder] = notification.useNotification();
 
   const handleSubmit = async () => {
     try {
@@ -16,48 +18,71 @@ export const SubmitButton = () => {
       });
       if (!response.ok) throw new Error("Failed to submit pipeline");
       const data = await response.json();
-      alert(
-        `Pipeline Info:\n\nNodes: ${data.num_nodes}\nEdges: ${
-          data.num_edges
-        }\nIs DAG: ${data.is_dag ? "Yes" : "No"}`
-      );
+
+      api.open({
+        message: (
+          <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 28,
+                height: 28,
+                borderRadius: "50%",
+                background: "#12b76a",
+              }}
+            >
+              <MdOutlineDone style={{ color: "#fff", fontSize: 20 }} />
+            </span>
+            <span style={{ color: "#12b76a", fontWeight: 600, fontSize: 18 }}>
+              Successfully Deployed!
+            </span>
+          </span>
+        ),
+        description: (
+          <div style={{ color: "#222", fontSize: 15, marginTop: 8 }}>
+            <b>Nodes:</b> {data.num_nodes} | <b>Edges:</b> {data.num_edges} |{" "}
+            <b>Is DAG:</b> {data.is_dag ? "Yes" : "No"}
+          </div>
+        ),
+        placement: "topRight",
+        duration: 4,
+        style: {
+          background: "#fff",
+          border: "1.5px solid #12b76a",
+          boxShadow: "0 4px 24px 0 rgba(16,185,129,0.10)",
+          width: 400,
+          borderRadius: "12px",
+          padding: "20px 28px",
+        },
+        icon: null,
+        showProgress: true,
+        pauseOnHover: true,
+      });
     } catch (error) {
-      alert("Error submitting pipeline: " + error.message);
+      api.error({
+        message: "Error",
+        description: error.message,
+        placement: "bottomLeft",
+      });
     }
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <button
-        type="button"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "4px",
-          background: hover ? "#5146e1" : "#635bfa",
-          color: "#fff",
-          border: "none",
-          borderRadius: "12px",
-          padding: "13px 24px",
-          fontSize: "1.4rem",
-          fontWeight: 500,
-          cursor: "pointer",
-          outline: "none",
-          transition: "background 0.2s",
-        }}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onClick={handleSubmit}
-      >
-        <PiRocketLaunchDuotone style={{ fontSize: "1.6rem" }} />
-        Submit
-      </button>
-    </div>
+    <>
+      {contextHolder}
+      <div className="submit-btn-container">
+        <Button
+          type="button"
+          className="submit-btn"
+          disabled={nodes.length < 1}
+          onClick={handleSubmit}
+        >
+          <PiRocketLaunchDuotone className="submit-btn-icon" />
+          Submit
+        </Button>
+      </div>
+    </>
   );
 };

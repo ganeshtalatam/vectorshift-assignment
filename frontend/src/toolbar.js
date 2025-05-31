@@ -4,7 +4,6 @@ import InputIcon from "@mui/icons-material/Input";
 import OutputIcon from "@mui/icons-material/Output";
 import { FileText } from "lucide-react";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-// import { FolderInput } from "lucide-react";
 
 export const PipelineToolbar = () => {
   const dragNodes = [
@@ -32,10 +31,3 @@ export const PipelineToolbar = () => {
     </div>
   );
 };
-
-{
-  /* <DraggableNode icon={<MdInput />} type="customInput" label="Input" />
-        <DraggableNode type="llm" label="LLM" />
-        <DraggableNode type="customOutput" label="Output" />
-        <DraggableNode type="text" label="Text" /> */
-}

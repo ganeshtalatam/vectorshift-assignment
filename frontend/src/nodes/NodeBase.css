@@ -1,8 +1,8 @@
+/* Card container */
 .nodebase-card {
-  min-width: 300px;
-  max-width: 300px;
+  width: 280px;
   background: #fff;
-  border: 3px solid #c7d2fe; /* Always 4px, so no jump */
+  border: 3px solid #c7d2fe;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(99, 102, 241, 0.08);
   font-family: Inter, sans-serif;
@@ -13,11 +13,13 @@
   transition: border-color 0.2s;
 }
 
+/* Card hover effects (keep as is) */
 .nodebase-card:hover {
   box-shadow: 0 4px 16px #cecffc;
   transition: border-shadow 0.5s;
 }
 
+/* Header section */
 .nodebase-header {
   background: #eef2ff;
   border-radius: 6px;
@@ -29,18 +31,26 @@
   gap: 4px;
 }
 
+/* Header row: icon, title, actions */
 .nodebase-header-row {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+/* Icon and title */
+.nodebase-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .nodebase-variant {
   color: #334155;
   font-weight: 600;
   font-size: 18px;
 }
 
+/* Hover color for icon and title (keep as is) */
 .nodebase-card:hover .nodebase-variant {
   color: #6366f1;
   cursor: pointer;
@@ -51,13 +61,24 @@
   cursor: pointer;
   transition: color 0.2s;
 }
+.nodebase-icon svg {
+  color: #334155;
+  transition: color 0.2s;
+}
+.nodebase-card:hover .nodebase-icon svg {
+  color: #6366f1;
+}
 
+/* Header description */
 .nodebase-header-desc {
   color: #000;
-  font-size: 11px;
+  font-size: 0.7rem;
+
+  line-height: 1.4;
   margin-left: 0;
 }
 
+/* Node name (centered pill) */
 .nodebase-name {
   background: #ede9fe;
   color: #334155;
@@ -70,22 +91,62 @@
   margin: 0 12px 10px 12px;
 }
 
+/* Controls row: label and controls in a column */
 .nodebase-controls-row {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 2px;
   margin: 0 12px 10px 12px;
 }
 
+/* Label row: label left, actions right */
+.nodebase-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+/* Label text */
 .nodebase-label {
   font-size: 14px;
   color: #444;
   min-width: 32px;
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
+  font-weight: 500;
 }
 
+/* Required asterisk */
+.nodebase-required {
+  color: #a21caf;
+  margin-left: 2px;
+}
+
+/* Action buttons (plus/edit) */
+.nodebase-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ede9fe;
+  border: 1px solid #c7d2fe;
+  border-radius: 4px;
+  padding: 0;
+  margin: 0 2px;
+  cursor: pointer;
+  color: #6366f1;
+  font-size: 14px;
+  transition: background-color 0.15s;
+  width: 20px;
+  height: 20px;
+}
+.nodebase-action-btn:last-child {
+  margin-right: 0;
+}
+
+/* Type and dropdown badges */
+.nodebase-type-badge,
 .nodebase-dropdown-badge {
   background: #6366f1;
   color: #fff;
@@ -96,6 +157,7 @@
   margin-left: 2px;
 }
 
+/* Dropdown select */
 .nodebase-select {
   width: 100%;
   border: 1.5px solid #c7d2fe;
@@ -112,56 +174,11 @@
   box-sizing: border-box;
   transition: border-color 0.2s;
 }
-
 .nodebase-select:focus {
   border-color: #6366f1;
 }
 
-.nodebase-text-section {
-  margin: 8px 12px;
-}
-
-.nodebase-text-label {
-  font-size: 14px;
-  color: #444;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.nodebase-required {
-  color: #a21caf;
-  margin-left: 2px;
-}
-
-.nodebase-action-btn {
-  background: #ede9fe;
-  border: 1px solid #c7d2fe;
-  border-radius: 4px;
-  padding: 2px 4px;
-  margin-right: 2px;
-  cursor: pointer;
-  color: #6366f1;
-  font-size: 14px;
-  margin-left: 2px;
-  transition: background 0.15s;
-}
-
-.nodebase-action-btn:last-child {
-  margin-right: 0;
-}
-
-.nodebase-type-badge {
-  background: #6366f1;
-  color: #fff;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 2px 8px;
-  margin-left: 2px;
-}
-
+/* Mentions input */
 .nodebase-mentions {
   margin-top: 6px;
   border: 1.5px solid #c7d2fe;
@@ -174,16 +191,19 @@
   transition: border-color 0.2s;
   color: #a21caf;
 }
-
 .nodebase-mentions:focus {
   border-color: #6366f1;
 }
 
-.nodebase-icon svg {
-  color: #334155;
-  transition: color 0.2s;
+/* Text section for "Text" node */
+.nodebase-text-section {
+  margin: 8px 12px;
 }
-
-.nodebase-card:hover .nodebase-icon svg {
-  color: #6366f1;
+.nodebase-text-label {
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
