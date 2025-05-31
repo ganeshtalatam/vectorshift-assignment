@@ -1,16 +1,30 @@
 import { PiRocketLaunchDuotone } from "react-icons/pi";
 import React from "react";
-// import { useStore } from "reactflow";
 import { useStore } from "./store";
 
 export const SubmitButton = () => {
   const [hover, setHover] = React.useState(false);
-  const { getAllNodesDataLength, getAllEdgesDataLength } = useStore(
-    (state) => ({
-      getAllNodesDataLength: state.getAllNodesDataLength,
-      getAllEdgesDataLength: state.getAllEdgesDataLength,
-    })
-  );
+  const nodes = useStore((state) => state.nodes);
+  const edges = useStore((state) => state.edges);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/pipelines/parse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nodes, edges }),
+      });
+      if (!response.ok) throw new Error("Failed to submit pipeline");
+      const data = await response.json();
+      alert(
+        `Pipeline Info:\n\nNodes: ${data.num_nodes}\nEdges: ${
+          data.num_edges
+        }\nIs DAG: ${data.is_dag ? "Yes" : "No"}`
+      );
+    } catch (error) {
+      alert("Error submitting pipeline: " + error.message);
+    }
+  };
 
   return (
     <div
@@ -21,7 +35,7 @@ export const SubmitButton = () => {
       }}
     >
       <button
-        type="submit"
+        type="button"
         style={{
           display: "flex",
           alignItems: "center",
@@ -39,10 +53,7 @@ export const SubmitButton = () => {
         }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        onClick={() => {
-          getAllNodesDataLength();
-          getAllEdgesDataLength();
-        }}
+        onClick={handleSubmit}
       >
         <PiRocketLaunchDuotone style={{ fontSize: "1.6rem" }} />
         Submit

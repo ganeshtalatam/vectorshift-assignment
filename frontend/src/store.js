@@ -46,7 +46,6 @@ export const useStore = create((set, get) => ({
           markerEnd: { type: MarkerType.Arrow, height: "20px", width: "20px" },
         },
         get().edges
-        // console.log(get().edges.length)
       ),
     });
   },
