@@ -301,7 +301,7 @@ const NodeBase = ({
                 prefix={"{{"}
                 options={getAllNodesByType("customInput").map((node) => ({
                   label: node.id.replace("customInput-", "input_"),
-                  value: `${node.id.replace("customInput-", "input_")}}}`,
+                  value: `${node.id.replace("customInput-", "input_")}`,
                 }))}
                 type="text"
                 value={currText}
