@@ -12,6 +12,9 @@ import { OutputNode } from "./nodes/outputNode";
 import { TextNode } from "./nodes/textNode";
 
 import "reactflow/dist/style.css";
+import TransformNode from "./nodes/transformNode";
+import ChatMemoryNode from "./nodes/chatMemoryNode";
+import TimeNode from "./nodes/timeNode";
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -20,6 +23,9 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  transformation: TransformNode,
+  chatMemory: ChatMemoryNode,
+  time: TimeNode,
 };
 
 const selector = (state) => ({

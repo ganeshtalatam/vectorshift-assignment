@@ -23,7 +23,7 @@ export const DraggableNode = ({ type, label, children }) => {
     >
       <div
         style={{
-          fontSize: 32,
+          fontSize: 28,
           marginBottom: 8,
           color: "#222",
           display: "flex",
@@ -37,7 +37,7 @@ export const DraggableNode = ({ type, label, children }) => {
         style={{
           color: "#222",
           fontWeight: 500,
-          fontSize: 16,
+          fontSize: 14,
           letterSpacing: 0.2,
         }}
       >

@@ -9,8 +9,11 @@ import {
   FiPlus,
   FiEdit2,
 } from "react-icons/fi";
+import { MdOutlineTransform, MdChat } from "react-icons/md";
 import { useStore } from "../store";
 import "./NodeBase.css";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { RiOpenaiFill } from "react-icons/ri";
 
 const NODE_CONFIG = {
   Input: {
@@ -43,6 +46,21 @@ const NODE_CONFIG = {
     handles: [{ type: "target", position: Position.Left, id: "value" }],
     showName: true,
   },
+  Transformation: {
+    icon: <MdOutlineTransform size={22} />,
+    description: "Output data of different types from your workflow",
+    fields: [
+      {
+        label: "Type",
+        help: "Type of output",
+        type: "dropdown",
+        options: ["Text", "File"],
+        badge: "Dropdown",
+      },
+    ],
+    handles: [{ type: "target", position: Position.Left, id: "value" }],
+    showName: true,
+  },
   Text: {
     icon: <FiFileText size={22} />,
     description:
@@ -60,7 +78,7 @@ const NODE_CONFIG = {
     showName: true,
   },
   LLM: {
-    icon: <FiFileText size={22} />,
+    icon: <RiOpenaiFill size={18} />,
     description: "This is a LLM",
     fields: [],
     handles: [
@@ -80,7 +98,64 @@ const NODE_CONFIG = {
     ],
     showName: false,
   },
-  // Add more node types here as needed
+  ChatMemory: {
+    icon: <MdChat size={22} />,
+    description: "Give connected nodes access to conversation history.",
+    fields: [
+      {
+        label: "Memory Type",
+        help: "Type of memory buffer",
+        type: "dropdown",
+        options: [
+          "Full - Formatted",
+          "Full - Raw",
+          "Message Buffer",
+          "Token Buffer",
+          "Vector Database",
+        ],
+        defaultValue: "Token Buffer",
+        badge: "Dropdown",
+      },
+    ],
+    handles: [{ type: "source", position: Position.Right, id: "memory" }],
+    showName: true,
+  },
+  Time: {
+    icon: <AccessTimeIcon size={22} color="#6366f1" />,
+    description: "Outputs the current time (often connected to LLM node)",
+    fields: [
+      {
+        label: "Timezone",
+        help: "Select the timezone",
+        type: "dropdown",
+        options: [
+          "America/Grand Turk | GMT-04:00",
+          "America/Grenada | GMT-04:00",
+          "America/Guadeloupe | GMT-04:00",
+          "America/Guatemala | GMT-06:00",
+          "America/Guayaquil | GMT-05:00",
+          "America/Guyana | GMT-04:00",
+          "America/Halifax | GMT-03:00",
+          "America/Havana | GMT-04:00",
+          "America/Hermosillo | GMT-07:00",
+          "America/Indiana/Knox | GMT-05:00",
+          "America/Indiana/Marengo | GMT-04:00",
+        ],
+        badge: "Dropdown",
+      },
+      {
+        label: "Output Format",
+        help: "Select the output format",
+        type: "dropdown",
+        options: ["DD-MM-YYYY / HH:MM:SS", "DD/ MM/ YYYY", "Timestamp"],
+        badge: "Dropdown",
+      },
+    ],
+    handles: [
+      { type: "source", position: Position.Right, id: "processed_time" },
+    ],
+    showName: true,
+  },
 };
 
 const NodeBase = ({
